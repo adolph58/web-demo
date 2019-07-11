@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    <meta charset = "utf-8"/>
+    <title>Chat by Web Sockets</title>
+    <link rel="stylesheet" href="../css/weui.min.css">
+	<link rel="stylesheet" href="../css/jquery-weui.css">
+	<link rel="stylesheet" href="../css/demos.css">
+    </head>
+
+    <body ontouchstart>
+
+	<audio></audio>
+	<button class="recorderControl">录制</button>
+
+    <script src="../js/jquery-2.1.4.js"></script>
+    <script src="../js/jquery-weui.js"></script>
+	<script src="../js/fastclick.js"></script>
+	<script src="../js/voice.js"></script>
+	<script>
+  	    $(function() {
+            FastClick.attach(document.body);
+  	    });
+	</script>
+    <script>
+        var promise=navigator.mediaDevices.getUserMedia({audio:true});
+		promise.then(function(stream){
+		var audio=document.querySelector("audio")
+		audio.src=URL.createObjectURL(stream);
+		var recorder=new MediaRecorder(stream);
+
+		var recorderControl=document.querySelector(".recorderControl");
+		recorderControl.onclick=function(){
+		this.textContent==="录制"?audio.play():audio.pause();
+		this.textContent==="录制"?recorder.start():recorder.stop();
+		this.textContent=this.textContent==="录制"?"停止":"录制";
+		}
+		recorder.ondataavailable=function(){
+		//收集媒体设备 获得到的 可以使用的 媒体流数据
+		console.log(event.data)
+		}
+		});
+
+
+		//获得到有效数据的时候调用
+		promise.catch(function(error){
+		console.log(error)
+		}); 
+    </script>
+  	</body>
+</html>

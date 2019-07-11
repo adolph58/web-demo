@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+    <meta charset = "utf-8"/>
+    <title>Chat by Web Sockets</title>
+    <link rel="stylesheet" href="../css/weui.min.css">
+	<link rel="stylesheet" href="../css/jquery-weui.css">
+	<link rel="stylesheet" href="../css/demos.css">
+    </head>
+
+    <body ontouchstart>
+
+	<div class='demos-content-padded'>
+      <a href="javascript:;" class="weui-btn weui-btn_primary open-popup" data-target="#half">显示底部的Popup</a>
+    </div>
+
+	<div id="half" class='weui-popup__container popup-bottom'>
+      <div class="weui-popup__overlay"></div>
+      <div class="weui-popup__modal">
+        <div class="toolbar">
+          <div class="toolbar-inner">
+            <a href="javascript:;" class="picker-button close-popup">关闭</a>
+            <h1 class="title">录音</h1>
+          </div>
+        </div>
+        <div class="modal-content">
+          <audio controls autoplay></audio>
+          <div class="weui-grids">
+          	<div class="button_sp_area" style="text-align:center">
+				<a href="javascript:;" onclick="startRecording()" class="weui-btn weui-btn_mini weui-btn_default" style="font-size: 18px;width: 24%;">开始</a>
+				<a href="javascript:;" onclick="stopRecord()" class="weui-btn weui-btn_mini weui-btn_default" style="font-size: 18px;width: 24%;">停止</a>
+				<a href="javascript:;" onclick="playRecord()" class="weui-btn weui-btn_mini weui-btn_default" style="font-size: 18px;width: 24%;">播放</a>
+				<a href="javascript:;" onclick="obtainRecord()" class="weui-btn weui-btn_mini weui-btn_primary" style="font-size: 18px;width: 24%;">发送</a>
+			</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/jquery-2.1.4.js"></script>
+    <script src="../js/jquery-weui.js"></script>
+	<script src="../js/fastclick.js"></script>
+	<script src="../js/voice.js"></script>
+	<script>
+  	    $(function() {
+            FastClick.attach(document.body);
+  	    });
+	</script>
+    <script>
+        $(document).on("open", ".weui-popup-modal", function() {
+            console.log("open popup");
+        }).on("close", ".weui-popup-modal", function() {
+            console.log("close popup");
+        });
+
+        /* 音频 */
+		var recorder;
+		var audio = document.querySelector('audio');
+		
+		//开始录音	
+		function startRecording() {
+			HZRecorder.get(function (rec) {
+				recorder = rec;
+				recorder.start();
+			});
+		}
+		
+		//停止录音
+		function stopRecord(){
+			recorder.stop();
+		};
+		
+		//播放录音	
+		function playRecord(){
+			recorder.play(audio);
+			//document.getElementById("palyWav").src="http://192.168.1.158:8585/blob.wav";
+		};
+
+		//发送语音
+		function obtainRecord(){
+			// var record = recorder.getBlob();
+			// debugger;
+				
+			var fd = new FormData();
+            fd.append('upload', recorder.getBlob(), new Date().getTime() + ".wav");
+		    $.ajax({
+		        method : "POST",
+		        data: fd,
+		        datatype : "json",
+		        cache: false,
+		        processData: false,
+		        contentType: false,
+		        url : "http://192.168.1.158:8585/test/upload",
+		        url : "${ctx}/fore/chat/attaFileUpload",
+		        success : function(data) {
+		            if (data == "upload") {
+		                alert("成功！");
+		                return true;
+		            } else {
+		                alert("失败！");
+		                return false;
+		            }
+		        }
+		    });
+		       
+		};
+    </script>
+  	</body>
+</html>

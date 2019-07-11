@@ -1,0 +1,28 @@
+﻿<html>
+	<head>
+    <meta charset="utf-8">
+    <title>文件上传</title>
+    
+	</head>
+<body>
+	<form name="form1" method="post" action="">
+	<p>
+		<input type="button" name="Submit" value="变换背景" onclick="turncolors()">
+	</p>
+	<p>用按钮随意变换背景颜色.</p>
+    </form>
+<script src="../js/jquery-2.1.4.js"></script>
+
+<script>
+	var Arraycolor = new Array("olive", "teal", "red", "blue", "maroon", "navy", "lime", "fuschia", "green", "purple",
+							"gray", "yellow", "aqua", "white", "silver"); //定义颜色数组
+	var n = 0;
+	function turncolors() {
+		if(n==(Arraycolor.length-1)) n=0;
+		n++;
+		document.bgColor = Arraycolor[n];
+	}
+</script>
+
+</body>
+</html>

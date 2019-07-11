@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title></title>
+<script src="jquery-2.1.4.js"></script>
+</head>
+<body>
+	<!-- multiple(多文件上传) -->
+	<input type="file" multiple id="inputs"/> 
+	<div id='dd'></div>
+ 
+<script>
+	$(document).ready(function () {
+		$("#inputs").change(function () {
+			var fil = this.files;
+			console.log(fil.length);
+			for (var i = 0; i < fil.length; i++) {
+				console.log(fil[i]);
+				console.log('--------------------------');
+				reads(fil[i]);
+			}
+		});
+	});
+	
+	function reads(fil){
+		var reader = new FileReader();
+		reader.readAsDataURL(fil);
+		reader.onload = function(){
+			// document.getElementById("dd").innerHTML += "<img src='"+reader.result+"'>";
+			$('#inputs').after("<img src='"+reader.result+"'>");
+		};
+	}
+</script>
+</body>
+<html>

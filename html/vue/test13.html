@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DEMO</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <span v-once>这个将不会改变: {{ msg }}</span>
+	<p>Using mustaches: {{ rawHtml }}</p>
+	<p>Using v-html directive: <span v-html="rawHtml"></span></p>
+</div>
+<script>
+    var app = new Vue({   //创建一个Vue的实例
+        el: "#app", //挂载点是id="app"的地方
+        data: {
+            rawHtml: '<span style="color: red">This should be red.</span>',
+			msg: "Hello, Vue!"
+        }
+    })
+	app.msg = "I have changed the data!"
+</script>
+</body>
+</html>
