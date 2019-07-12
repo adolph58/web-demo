@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DEMO</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--文本换行-->
+	<p style="white-space: pre-wrap;">{{ msg }}</p>
+</div>
+<script>
+    var vm = new Vue({   //创建一个 Vue 的实例
+        el: "#app", //挂载点是id="app"的地方
+        data: {
+			msg: "第一行文字!\n第二行文字！"
+        }
+    })
+</script>
+</body>
+</html>

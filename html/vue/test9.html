@@ -22,7 +22,7 @@ var vm = new Vue({
         get:function(){
             //发送get请求
             this.$http.get('http://localhost:9000/hello').then(function(res){
-                this.msg=res.body
+                this.msg = res.body
             },function(){
                 console.log('请求失败处理');
             });
