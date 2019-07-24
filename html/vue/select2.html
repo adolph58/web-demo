@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DEMO</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <h3>下拉框选择案例</h3>
+    <select v-model="city">
+        <option v-for="cityObj in citys" v-bind:value="cityObj.name">{{cityObj.desc}}</option>
+    </select>
+    <input type="button" v-on:click="check" value="提交"/>
+</div>
+<script>
+    var app = new Vue({   //创建一个Vue的实例
+        el: "#app", //挂载点是id="app"的地方
+        data: {
+            city: "",
+            citys: [
+                {name:"beijing",desc:"北京"},
+                {name:"shanghai",desc:"上海"},
+                {name:"tianjin",desc:"天津"},
+                {name:"chongqing",desc:"重庆"},
+            ]
+        },
+        methods: {
+            check: function() {
+                console.log("city->" + this.city);
+            }
+        }
+
+    })
+</script>
+</body>
+</html>
