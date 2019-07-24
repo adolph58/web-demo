@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DEMO</title>
+    <script src="../../js/vue.js"></script>
+</head>
+<body>
+<ul id="v-for-object" class="demo">
+    <li v-for="value in object">
+        {{ value }}
+    </li>
+</ul>
+<script>
+    var vm = new Vue({
+        el: '#v-for-object',
+        data: {
+            object: {
+                title: 'How to do lists in Vue',
+                author: 'Jane Doe',
+                publishedAt: '2016-04-10'
+            }
+        }
+    });
+    Vue.set(vm.object, 'content1', 'update array');
+    vm.$set(vm.object, 'content2', 'update array again');
+    //有时你可能需要为已有对象赋值多个新属性，比如使用 Object.assign() 或 _.extend()。
+    // 在这种情况下，你应该用两个对象的属性创建一个新的对象。所以，如果你想添加新的响应式属性，
+    // 不要像这样：
+    // Object.assign(vm.userProfile, {
+    //     age: 27,
+    //     favoriteColor: 'Vue Green'
+    // })
+    //你应该这样做：
+    vm.object = Object.assign({}, vm.object, {
+        content3: 'update array third time',
+        content4: 'update array fourth time'
+    })
+</script>
+</body>
+</html>
