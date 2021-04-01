@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <script src="jquery.js"></script>
+    <script src="../../js/jquery-2.1.4.js"></script>
+
 </head>
 <body>
 <div class="cookie"></div>
@@ -16,39 +17,57 @@
 </table>
 <div class="get"></div>
 </body>
+
 <script type="text/javascript">
 
-	$.ajax({
-        type: 'get',
-        url: 'http://localhost:8002/book/info/23',
-        success: function (data) {
-            //let str = JSON.stringify(data)
-            //$('.get').text(str)
-            //console.log(data)
-			if(data.startWith("<!")) {
-				window.location.href="http://localhost:8000/auth/login";
-			} else {
-				alert(data.data..name);
-			}
-        }
-    })
+	// $.ajax({
+    //     type: 'get',
+    //     datatype: "jsonp",
+    //     xhrFields: {
+    //         withCredentials: true
+    //     },
+    //     crossDomain: true,
+    //     url: 'http://localhost/pc/book/info/5',
+    //     // url: 'http://localhost:8002/book/info/5',
+    //     success: function (data) {
+    //         //let str = JSON.stringify(data)
+    //         //$('.get').text(str)
+    //         //console.log(data)
+	// 		if(data.startWith("<!")) {
+	// 			window.location.href="http://localhost/auth/auth/login";
+	// 		} else {
+	// 			alert(data.data.name);
+	// 		}
+    //     },
+    //     error:function(data){
+    //         $.toast("服务端数据请求失败！", "text");
+    //     }
+    // })
 
     $('.getBookInfo').click(function () {
-        $.ajax({
-            type: 'get',
-            url: 'http://localhost:8002/book/info/23',
-            success: function (data) {
-                let str = JSON.stringify(data)
-                $('.get').text(str)
-                console.log(data)
+        $.get('http://localhost/api/ums//user/authority/app/list', function (data, status) {
+            console.log("数据：" + data + "\n状态：" + status);
+            console.log("code：" + data.code);
+            console.log("msg：" + data.msg);
+            if(data.code == 401) {
+                location.href = "http://myauth.com:8002/oauth/authorize?client_id=orderplus-client&redirect_uri=http://mygateway.com:8000/oauth/callback&response_type=code&state=abc"
             }
         })
+        // $.ajax({
+        //     type: 'get',
+        //     url: 'http://localhost/pc/book/info/5',
+        //     success: function (data) {
+        //         let str = JSON.stringify(data)
+        //         $('.get').text(str)
+        //         console.log(data)
+        //     }
+        // })
     })
 	
 	$('.getHello').click(function () {
         $.ajax({
             type: 'get',
-            url: 'http://localhost:8003/hello',
+            url: 'http://localhost/pc/hello',
             success: function (data) {
                 let str = JSON.stringify(data)
                 $('.get').text(str)

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+	{{province}}
+</div>
+
+<script>
+
+new Vue({   //创建一个Vue的实例
+    el: "#app", //挂载点是id="app"的地方
+    created: function () { // 初始化方法
+        this.initPage();
+    },
+    data: {     //数据
+        province: "zhejiang",
+        mail: "",
+        pw: "",
+        name: "",
+        city: "",
+        citys: {},
+        provinceWithCity: {
+            zhejiang: {
+                hangzhou: "杭州",
+                shaoxing: "绍兴"
+            },
+            shanghai: {
+                pudong: "浦东区",
+                jingan: "静安区"
+            }
+        },
+        verificationCode: "",
+        error: ""
+    },
+    methods: {
+        initPage: function () {
+            window.addEventListener('message', function(e) {
+                alert(e.data);
+            },false);
+        }
+    }
+})
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+</head>
+<body>
+<div id="box">
+    <input type="button" @click="get()" value="点我跳转页面(Get)">
+    {{msg}}
+</div>
+<script>
+    window.onload = function(){
+        var vm = new Vue({
+            el:'#box',
+            data:{
+                msg:'Hello World!',
+            },
+            methods:{
+                get:function(){
+                    var popup = window.open('http://localhost:81/html/cross-document-messaging.html', 'title');
+                    popup.postMessage('Hello World!', 'http://localhost:81');
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>
